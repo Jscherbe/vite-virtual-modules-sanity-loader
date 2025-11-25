@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "@ulu/sanity-loader": {
+      "signature": "d203ac9c99f1acaa4d4458fea5a069c0",
+      "file": true,
+      "replaced": "^1.0.0"
+    }
+  }
+}
