@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "packages": {
+    "@ulu/sanity-loader": {
+      "signature": "0ed1d61d4d4a4902284cc21c6f083f9b",
+      "file": true
+    },
+    "@ulu/vite-virtual-modules-sanity-loader": {
+      "signature": "5a59592a84fb22c8e946cd7df239566a",
+      "file": true
+    }
+  }
+}

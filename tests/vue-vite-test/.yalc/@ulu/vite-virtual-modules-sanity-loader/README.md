@@ -12,8 +12,8 @@ This plugin allows you to fetch content from Sanity.io at build time and expose 
 This library is a bridge between the core [`@ulu/sanity-loader`](https://github.com/Jscherbe/sanity-loader) and your Vite project, leveraging the file-based approach of `@ulu/vite-plugin-virtual-modules`.
 
 The workflow is as follows:
-1.  You create a central `src/sanity/index.js` file to configure and export a `virtualModulesLoader` instance.
-2.  In your `src`, you create a "loader" file (e.g., `src/data/siteSettings.js`). This file imports the `virtualModulesLoader` and uses its `defineLoader` method to generate its default export.
+1.  You create a central `src/sanity/index.js` file to configure and export a `sanityApi` instance.
+2.  In your `src`, you create a "loader" file (e.g., `src/data/siteSettings.js`). This file imports the `sanityApi` and uses its `createLoader` method to generate its default export.
 3.  In your application, you import the loader file with the `?virtual-module` suffix.
 4.  At build time, `@ulu/vite-plugin-virtual-modules` executes your loader, which uses `@ulu/sanity-loader` to fetch data and generate the final module content.
 
@@ -69,8 +69,7 @@ Create a central file to configure your connection to Sanity. This code runs in 
 
 ```javascript
 // src/sanity/index.js
-import { createSanityLoader } from '@ulu/sanity-loader';
-import { createVirtualModulesLoader } from '@ulu/vite-virtual-modules-sanity-loader';
+import { createApi } from '@ulu/vite-virtual-modules-sanity-loader';
 import { createClient } from '@sanity/client';
 
 // 1. Create a Sanity client
@@ -81,8 +80,8 @@ const sanityClient = createClient({
   apiVersion: '2023-05-03',
 });
 
-// 2. Create the core Sanity loader instance
-const sanityLoader = createSanityLoader({
+// 2. Create and export the API instance
+export const sanityApi = createApi({
   client: sanityClient,
   paths: {
     queries: './src/sanity/queries',
@@ -92,22 +91,19 @@ const sanityLoader = createSanityLoader({
   },
   verbose: true // Enable logging for debugging
 });
-
-// 3. Create and export the virtual modules loader instance
-export const virtualModulesLoader = createVirtualModulesLoader(sanityLoader);
 ```
 
 ### 4. Create the Virtual Module Loader
 
-This file imports the `virtualModulesLoader` and uses it to create a loader for a specific piece of data.
+This file imports the `sanityApi` and uses it to create a loader for a specific piece of data.
 
 ```javascript
 // src/data/siteSettings.js
-import { virtualModulesLoader } from '../sanity/index.js';
+import { sanityApi } from '../sanity/index.js';
 
-// defineLoader returns a function that becomes this module's default export.
+// createLoader returns a function that becomes this module's default export.
 // This is what @ulu/vite-plugin-virtual-modules will execute.
-export default virtualModulesLoader.defineLoader({
+export default sanityApi.createLoader({
   queryName: 'siteSettings', // From queries/siteSettings.groq
   cacheEnabled: true
 });
@@ -126,25 +122,17 @@ console.log(siteSettings.siteTitle);
 
 ## API Reference
 
-### `createVirtualModulesLoader(sanityLoader, globalOptions)`
+### `createApi(config)`
 
-This function is the main entry point. It accepts two arguments:
-1.  `sanityLoader`: A pre-configured instance returned from `createSanityLoader` in the core [`@ulu/sanity-loader`](https://github.com/Jscherbe/sanity-loader) library.
-2.  `globalOptions` (optional): An object with global settings for all loaders created by this instance. It can contain `watch`, `watchOptions`, and `watchEvents`.
+This function is the main entry point. It accepts a configuration object that is passed directly to `createSanityLoader` from the core [`@ulu/sanity-loader`](https://github.com/Jscherbe/sanity-loader) library. See the [**core library's documentation**](https://github.com/Jscherbe/sanity-loader#configuration-createsanityloader) for all available options.
 
-### `virtualModulesLoader.defineLoader(options)`
+### `sanityApi.createLoader(options)`
 
-This is a factory function that generates the entire default export needed by a loader file for `@ulu/vite-plugin-virtual-modules`. It accepts the same options as `defineLoader` from the core library, but also includes Vite-specific options:
+This is a factory function that generates the entire default export needed by a loader file for `@ulu/vite-plugin-virtual-modules`. It accepts the same options as `defineLoader` from the core library.
 
-*   **Core Options:** See the [**`@ulu/sanity-loader` documentation**](https://github.com/Jscherbe/sanity-loader#creating-loaders-defineloaders) for all available loader options (`queryName`, `transform`, etc.).
-*   **Vite Options:**
-    *   `watch` (`string[] | null`): Override global watch patterns for this specific loader.
-    *   `watchOptions` (`object`): Override global watcher options for this loader.
-    *   `watchEvents` (`string[]`): Override global watch events for this loader.
+See the [**`@ulu/sanity-loader` documentation**](https://github.com/Jscherbe/sanity-loader#creating-loaders-defineloaders) for all available loader options. The `createLoader` function automatically wraps the result in a JSON module for you.
 
-The `defineLoader` function automatically wraps the result in a JSON module for you.
-
-All other utilities (`imageUrl`, `utils`, `client`) are available on the `virtualModulesLoader` object and are passed through from the core loader.
+All other utilities (`imageUrl`, `utils`, `client`) are available on the `sanityApi` object and are passed through from the core loader.
 
 ## License
 

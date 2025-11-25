@@ -49,5 +49,6 @@
   "peerDependencies": {
     "@sanity/client": ">=6",
     "vite": ">=4"
-  }
+  },
+  "yalcSig": "5a59592a84fb22c8e946cd7df239566a"
 }
