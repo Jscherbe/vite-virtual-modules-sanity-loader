@@ -10,3 +10,6 @@
 .DS_Store
 
 .yalc
+
+# Dotenv and similar local-only files
+*.local
