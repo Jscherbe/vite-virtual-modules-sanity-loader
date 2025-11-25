@@ -24,7 +24,7 @@ const sanityLoader = createSanityLoader({
     assets: './public/assets/sanity',
     assetsPublic: '/assets/sanity'
   },
-  verbose: true // Enable logging for debugging
+  // verbose: true // Enable logging for debugging
 });
 
 // 3. Create and export the virtual modules loader, passing in the sanity loader

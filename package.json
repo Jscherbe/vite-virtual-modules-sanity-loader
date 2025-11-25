@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "A Vite virtual module loader for Sanity content. It handles data fetching, caching, and asset management for integration into Vite applications.",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "files": [
     "lib",
+    "types",
     "LICENSE",
     "README.md"
   ],
   "exports": {
-    ".": "./lib/index.js"
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./types/index.d.ts"
+    }
   },
   "type": "module",
   "scripts": {
@@ -17,7 +22,8 @@
     "dev:inspect:broken": "node --inspect-brk node_modules/vite",
     "dev:inspect": "NODE_OPTIONS='--inspect' vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "types": "npx tsc"
   },
   "keywords": [
     "assets",

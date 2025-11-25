@@ -19,7 +19,7 @@
     "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@ulu/vite-plugin-virtual-modules": "^1.2.1",
+    "@ulu/vite-plugin-virtual-modules": "^1.0.3",
     "@vitejs/plugin-vue": "^6.0.1",
     "vite": "^7.1.11",
     "vite-plugin-vue-devtools": "^8.0.3"

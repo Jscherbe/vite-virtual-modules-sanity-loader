@@ -2,11 +2,11 @@
   "version": "v1",
   "packages": {
     "@ulu/sanity-loader": {
-      "signature": "0ed1d61d4d4a4902284cc21c6f083f9b",
+      "signature": "b589ece73612feb90d911026a1860667",
       "file": true
     },
     "@ulu/vite-virtual-modules-sanity-loader": {
-      "signature": "5a59592a84fb22c8e946cd7df239566a",
+      "signature": "f8e0ee01c81fb88210490b327c054ae6",
       "file": true
     }
   }
