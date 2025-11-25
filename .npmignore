@@ -1,0 +1,13 @@
+# Publishing configs
+eslint.config.js
+jsdoc.json
+tsconfig.json
+vite.config.js
+vitest.config.js
+
+# Test & Docs folders
+tests/
+docs/
+
+# Logs
+*.log

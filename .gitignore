@@ -1,10 +1,6 @@
 # Dependencies
 /node_modules
 
-# Generated
-/types
-/docs
-
 # Environment variables
 .env
 .env.*
