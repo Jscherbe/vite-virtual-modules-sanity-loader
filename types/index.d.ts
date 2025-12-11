@@ -24,7 +24,7 @@ export function createVirtualModulesLoader(sanityLoader: SanityLoader, globalOpt
     watchOptions?: object;
     watchEvents?: string[];
 }): VirtualModulesLoader;
-export type SanityLoader = import("@ulu/sanity-loader").SanityLoader;
+export type SanityLoader = any;
 export type SanityClient = import("@sanity/client").SanityClient;
 export type ImageUrlBuilder = import("@sanity/image-url/lib/types/builder").ImageUrlBuilder;
 export type VirtualModulesLoader = {

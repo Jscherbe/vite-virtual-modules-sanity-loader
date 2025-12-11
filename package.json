@@ -1,6 +1,6 @@
 {
   "name": "@ulu/vite-virtual-modules-sanity-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vite virtual module loader for Sanity content. It handles data fetching, caching, and asset management for integration into Vite applications.",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
